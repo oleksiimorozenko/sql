@@ -105,6 +105,18 @@ Please do not pick the exact same tables that I have already diagrammed. For exa
 	- <img src="./images/01_farmers_market_conceptual_model.png" width="600">
 - The column names can be found in a few spots (DB Schema window in the bottom right, the Database Structure tab in the main window by expanding each table entry, at the top of the Browse Data tab in the main window)
 
+For the assignment, I chose the following tables:
+- `vendor_booth_assignments`
+- `booth`
+- `market_date_info`
+- `vendor`
+
+The logical data model should look like this:
+
+<img src="./images/vendor_booth_assignments.png" width="500">
+
+The relationship between the `vendor_booth_assignments` and the other tables is a one-to-many.
+
 ***
 
 ## Section 2:
