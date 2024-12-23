@@ -45,18 +45,63 @@ There are several tools online you can use, I'd recommend [Draw.io](https://www.
 
 **HINT:** You do not need to create any data for this prompt. This is a conceptual model only. 
 
+For the assignment, I chose the dbdiagram.io tool to create the logical data model.
+It is based on amazing database markup language ([DBML](https://dbml.dbdiagram.io/docs/)), which I found to be very easy and useful.
+
+The diagram should look like this:
+
+<img src="./images/assignment-2-prompt-1.png" width="500">
+
+It includes the following tables:
+- `Book`
+- `Customer`
+- `Date`
+- `Employee`
+- `Order`
+- `OrderDetails`
+- `Sales`
+
 #### Prompt 2
 We want to create employee shifts, splitting up the day into morning and evening. Add this to the ERD.
+
+The diagram including shifts should look like this:
+
+<img src="./images/assignment-2-prompt-2.png" width="500">
 
 #### Prompt 3
 The store wants to keep customer addresses. Propose two architectures for the CUSTOMER_ADDRESS table, one that will retain changes, and another that will overwrite. Which is type 1, which is type 2? 
 
-**HINT:** search type 1 vs type 2 slowly changing dimensions. 
-
+Option 1: Retain changes
 ```
-Your answer...
+Table Customer_Address {
+  AddressID integer [primary key]
+  CustomerID integer
+  Address varchar
+  City varchar
+  State varchar
+  ZipCode varchar
+  Country varchar
+  StartDate date
+  EndDate date [nullable] -- Null indicates the current address
+}
 ```
+In this option, each address is stored in a separate row, and the `EndDate` column can be null, indicating that the address is the current address. If address is updated, a new row is created with the updated address, `EndDate` set to the date when the change was made.
 
+Option 2: Overwrite
+```
+Table Customer_Address {
+  CustomerID integer [primary key]
+  Address varchar
+  City varchar
+  State varchar
+  ZipCode varchar
+  Country varchar
+  LastUpdated date
+}
+```
+In this option, the address is overwritten with the new address but we can keep track of the last update date.
+
+According to the [article](https://www.sqlshack.com/implementing-slowly-changing-dimensions-scds-in-data-warehouses/), Option 1 is type 2 and Option 2 is type 1.
 ***
 
 ## Section 2:
